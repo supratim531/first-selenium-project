@@ -72,15 +72,18 @@ def userLock():
             EC.element_to_be_clickable((By.LINK_TEXT, 'Lock')))
 
     userLock.click()  # This is a link
+    toggler = driver.find_elements(By.CLASS_NAME, 'custom-control-input')
+    total = toggler.__len__()
     transactionCode = driver.find_element(
         By.XPATH, '/html/body/div[4]/div[1]/div/div/div/div/div[2]/div[3]/form/div[3]/div/input')
     submitButton = driver.find_element(
         By.XPATH, '/html/body/div[4]/div[1]/div/div/div/div/div[2]/div[3]/form/div[4]/div/button')
     betLockToggler = driver.find_element(By.CLASS_NAME, 'custom-control-input')
-    clickBetLockToggler = 'document.getElementsByClassName("custom-control-input")[2].click()'
+    clickBetLockToggler = f'document.getElementsByClassName("custom-control-input")[{total - 4}].click()'
     driver.execute_script(clickBetLockToggler, betLockToggler)
-    userLockToggler = driver.find_element(By.CLASS_NAME, 'custom-control-input')
-    clickUserLockToggler = 'document.getElementsByClassName("custom-control-input")[3].click()'
+    userLockToggler = driver.find_element(
+        By.CLASS_NAME, 'custom-control-input')
+    clickUserLockToggler = f'document.getElementsByClassName("custom-control-input")[{total - 3}].click()'
     driver.execute_script(clickUserLockToggler, userLockToggler)
     transactionCode.send_keys('828398')
     submitButton.click()
@@ -89,7 +92,7 @@ def userLock():
 if __name__ == '__main__':
     loginAsAdmin()
     switchToUsersPage()
-    loadUser('sayan12345')
+    loadUser('1001utsav12')
     hitMoreButton()
     userLock()
 
